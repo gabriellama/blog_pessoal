@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.generation.blogpessoal.model.Postagem;
+import com.generation.blogpessoal.model.Tema;
 import com.generation.blogpessoal.repository.PostagemRepository;
 
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.Valid;
 
 @RestController // anotação que diz para a spring que essa é uma controladora de rotas e acesso de metodos
@@ -68,7 +72,8 @@ public class PostagemController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
-	@DeleteMapping
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
 		Optional<Postagem> postagem = postagemRepository.findById(id);
 		
@@ -77,4 +82,8 @@ public class PostagemController {
 		
 		postagemRepository.deleteById(id);
 	}
+	
+	@ManyToOne // criar o relacionamento de que muitas postagens pode pertencer a um tema
+	@JsonIgnoreProperties("postagem") // ignorando as postagens na lista de tema, pra não dar um loop infinito
+	private Tema tema;
 }
