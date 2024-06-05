@@ -24,12 +24,12 @@ import com.generation.blogpessoal.repository.TemaRepository;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/temas")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/temas") //procura na model temas
+@CrossOrigin(origins = "*", allowedHeaders = "*") //origins (vem de qualquer lugar), allowedHeaders (quem pode incluir? qualquer um)
 public class TemaController {
-
-	@Autowired
-    private TemaRepository temaRepository;
+    
+    @Autowired
+    private TemaRepository temaRepository; //injeção de dependência, trás toda a interface, cria o acesso a todas as classes
     
     @GetMapping
     public ResponseEntity<List<Tema>> getAll(){
@@ -44,15 +44,15 @@ public class TemaController {
     }
     
     @GetMapping("/descricao/{descricao}")
-    public ResponseEntity<List<Tema>> getByTitle(@PathVariable 
-    String descricao){
+    public ResponseEntity<List<Tema>> getByDescricao(@PathVariable String descricao) //getByDescricao > poderia ser qualquer nome no lugar de descricao 
+    {
         return ResponseEntity.ok(temaRepository
             .findAllByDescricaoContainingIgnoreCase(descricao));
     }
     
     @PostMapping
     public ResponseEntity<Tema> post(@Valid @RequestBody Tema tema){
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity.status(HttpStatus.CREATED) //trás a resposta, o status
                 .body(temaRepository.save(tema));
     }
     
@@ -74,4 +74,5 @@ public class TemaController {
         
         temaRepository.deleteById(id);              
     }
+
 }

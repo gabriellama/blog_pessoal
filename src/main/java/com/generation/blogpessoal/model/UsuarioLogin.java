@@ -1,4 +1,4 @@
-package com.generation.blogpessoal.model;
+ package com.generation.blogpessoal.model;
 
 /*
  * essa classe esta sendo criada apenas para que a api conseguir transitar as informações do usuário com o

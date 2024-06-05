@@ -7,10 +7,13 @@ import org.springframework.data.repository.query.Param;
 
 import com.generation.blogpessoal.model.Postagem;
 
-
-//jparepository - classe jpa - metodos que vão realizar query no banco 
+//JpaRepository - classe do JPA (dependência adicionada), dentro dela contém métodos que vão realizar Query no banco. Significa que a JPA assume o controle de criar automaticamente o SELECT * FROM tb_postagem. 
 public interface PostagemRepository extends JpaRepository<Postagem, Long> {
-	//SELECT * FROM  tb_postagens
+// entre o diamante se coloca a classe (postagem) que está puxando da model e o tipo (long). 
+	// a JPA faz a ligação para buscar no banco de dados
 	
+	//SELECT * FROM tb_postagens WHERE titulo LIKE "%POST%"; = findAllByTituloContainingIgnoreCase
 	public List <Postagem> findAllByTituloContainingIgnoreCase(@Param("titulo") String titulo);
+
+
 }

@@ -8,5 +8,7 @@ import org.springframework.data.repository.query.Param;
 import com.generation.blogpessoal.model.Tema;
 
 public interface TemaRepository extends JpaRepository<Tema, Long> {
+	
 	public List<Tema> findAllByDescricaoContainingIgnoreCase(@Param("descricao") String descricao);
+//findAllByDescricaoContainingIgnoreCase = procura tudo que contenha descrição e ignora maiusculo e minusculo.
 }
