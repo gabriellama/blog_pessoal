@@ -1,20 +1,23 @@
- package com.generation.blogpessoal.model;
-
+package com.generation.blogpessoal.model;
 /*
  * essa classe esta sendo criada apenas para que a api conseguir transitar as informações do usuário com o
  * token sem persistir no banco de dados o token
  */
-public class UsuarioLogin {
 
+public class UsuarioLogin {
+	
 	private Long id;
 	private String nome;
 	private String usuario;
-	private String senha;
+	private String senha; 
 	private String foto;
-	private String token;//diferença entre usuário x usuarioLogin
+	private String token; // pq 2 classes de usuario? para adicionar o token, o token não persiste no banco de dados
+	
 	/*
 	 * não persistir o token no banco
 	 */
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -51,7 +54,5 @@ public class UsuarioLogin {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
-	
 	
 }

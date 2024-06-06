@@ -1,9 +1,7 @@
 package com.generation.blogpessoal.model;
 
 import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -19,29 +17,40 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="tb_usuarios")
-public class Usuario {
 
+public class Usuario {
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotNull(message="Atributo Nome é obrigatório!")
+	@NotNull(message = "O atributo nome é obrigatório!")
 	private String nome;
 	
-	@NotNull(message="Atributo EMAIL é obrigatório")
-	@Email(message="Atributo deve ser um e-mail válido")
+	@NotNull(message = "O atributo e-mail é obrigatório!")
+	@Email(message = "O atributo deve ser um e-mail válido!")
 	private String usuario;
 	
-	@NotBlank(message="O atributo SENHA é obrigatório")
-	@Size(min=8, message="A SENHA deve ter no minimo 8 caracteres")
+	@NotBlank(message = "O atributo senha é obrigatório!")
+	@Size(min = 8, message = "a senha deve ter no mínimo 8 caracteres.")
 	private String senha;
 	
-	@Size(max = 5000, message = "A foto deve ter no máximo 5000 caracteres")
+	@Size(max = 5000, message = "A foto deve ter no máximo 5000 caracteres.")
 	private String foto;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade=CascadeType.REMOVE)
 	@JsonIgnoreProperties("usuario")
-	private List<Postagem> postagem;
+	private List<Postagem> postagens;
+	
+	public Usuario(Long id, String nome, String usuario, String senha, String foto) {
+		this.id = id;
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+		this.foto = foto;
+	}
+	
+	public Usuario() { }
 
 	public Long getId() {
 		return id;
@@ -83,13 +92,12 @@ public class Usuario {
 		this.foto = foto;
 	}
 
-	public List<Postagem> getPostagem() {
-		return postagem;
+	public List<Postagem> getPostagens() {
+		return postagens;
 	}
 
-	public void setPostagem(List<Postagem> postagem) {
-		this.postagem = postagem;
+	public void setPostagens(List<Postagem> postagens) {
+		this.postagens = postagens;
 	}
-	
-	
+
 }
